@@ -15,6 +15,7 @@
 package com.google.common.util.concurrent;
 
 import com.google.common.annotations.GwtIncompatible;
+import com.google.errorprone.annotations.InlineMe;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.atomic.AtomicReferenceArray;
 import org.jspecify.annotations.Nullable;
@@ -33,7 +34,15 @@ public final class Atomics {
    * Creates an {@code AtomicReference} instance with no initial value.
    *
    * @return a new {@code AtomicReference} with no initial value
+   * @deprecated This method is unnecessary. Instead, use the {@code AtomicReference} {@linkplain
+   *     AtomicReference#AtomicReference() constructor} directly, taking advantage of <a
+   *     href="https://docs.oracle.com/javase/tutorial/java/generics/genTypeInference.html#type-inference-instantiation">"diamond"
+   *     syntax</a>.
    */
+  @Deprecated
+  @InlineMe(
+      replacement = "new AtomicReference<>()",
+      imports = "java.util.concurrent.atomic.AtomicReference")
   public static <V> AtomicReference<@Nullable V> newReference() {
     return new AtomicReference<>();
   }
@@ -43,7 +52,15 @@ public final class Atomics {
    *
    * @param initialValue the initial value
    * @return a new {@code AtomicReference} with the given initial value
+   * @deprecated This method is unnecessary. Instead, use the {@code AtomicReference} {@linkplain
+   *     AtomicReference#AtomicReference(Object) constructor} directly, taking advantage of <a
+   *     href="https://docs.oracle.com/javase/tutorial/java/generics/genTypeInference.html#type-inference-instantiation">"diamond"
+   *     syntax</a>.
    */
+  @Deprecated
+  @InlineMe(
+      replacement = "new AtomicReference<>(initialValue)",
+      imports = "java.util.concurrent.atomic.AtomicReference")
   public static <V extends @Nullable Object> AtomicReference<V> newReference(
       @ParametricNullness V initialValue) {
     return new AtomicReference<>(initialValue);
